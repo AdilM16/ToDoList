@@ -24,12 +24,17 @@ mySection.appendChild(secondDiv);
 todoButton.forEach(element => {
     let myToDoButton = document.createElement('Button');
     myToDoButton.textContent = element.nom;
+    myToDoButton.setAttribute('class','invalid');
     secondDiv.appendChild(myToDoButton);
 });
 //Event
+let divToDoList = document.createElement('div');
+mySection.appendChild(divToDoList);
+
 myButton.addEventListener('click', ()=>{
     let divToDo = document.createElement('div');
-    secondDiv.appendChild(divToDo)
+    divToDo.setAttribute('class','invalid');
+    divToDoList.appendChild(divToDo)
     let listName = document.createElement('span');
     listName.textContent = myInput.value
     myInput.value = ''
@@ -54,17 +59,51 @@ myButton.addEventListener('click', ()=>{
     //
     frstBtn.addEventListener('click', ()=>{
         divToDo.style.backgroundColor = 'lightgreen'
-        
+        if (divToDo.className == 'invalid') {
+            divToDo.setAttribute('class','valid')
+        }else if(divToDo.className == 'valid'){
+            divToDo.setAttribute('class','invalid')
+            divToDo.style.backgroundColor = 'white'
+        }
     })
+    
     //
     scndBtn.addEventListener('click', ()=>{
-        divToDo.style.backgroundColor = 'dodgerblue'
+        listName.textContent = prompt('Changez le nom de votre liste')
     })
     //
     thrdBtn.addEventListener('click', ()=>{
         divToDo.remove()
     })
+    let elemToDo = Array.from(document.querySelectorAll('div')[1].childNodes);
+    elemToDo.forEach(element => {
+        
+    });
+    let elemTodo1 = document.querySelectorAll('button')[1];
+    let elemTodo2 = document.querySelectorAll('button')[2];
+    let elemTodo3 = document.querySelectorAll('button')[3];
+    
+    elemTodo1.addEventListener('click', ()=>{
+        if (divToDo.className == 'invalid') {
+            divToDo.style.display = 'none'
+        }
+    })
+    elemTodo2.addEventListener('click',()=>{
+        if (divToDo.className == 'valid') {
+            divToDo.style.display =  'none'
+        }
+    })
+    elemTodo3.addEventListener('click',()=>{
+        if (divToDo.className == 'valid' || divToDo.className == 'invalid' ) {
+            divToDo.style.display = 'flex'
+        }
+    })
+    btnClear.addEventListener('click',()=>{
+        divToDoList.remove()
+    })
+    
 })
+
 //3eme Div 'Clear'
 let thirdDiv = document.createElement('div');
 mySection.appendChild(thirdDiv);
